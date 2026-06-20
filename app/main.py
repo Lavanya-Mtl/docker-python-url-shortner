@@ -28,4 +28,4 @@ def resolve_url(short_code: str):
 
 @app.get("/")
 def root():
-    return {"message": "URL Shortener API", "docs": "/docs"}
+    return {"message": "URL Shortener API v2", "docs": "/docs"}
