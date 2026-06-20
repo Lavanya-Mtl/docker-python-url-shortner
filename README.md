@@ -33,6 +33,11 @@ Developer pushes code
 
 All infrastructure provisioned with Terraform.
 ```
+---
+
+## Architecture Diagram
+
+See [docs/architecture.mmd](docs/architecture.mmd) — renders as a diagram on GitHub.
 
 ---
 
@@ -169,6 +174,16 @@ CloudWatch dashboard tracks:
 - ECS CPU and memory utilisation
 - HTTP 4xx and 5xx error rates
 - Container health check status
+
+---
+
+## Screenshots
+
+### CI/CD Pipeline
+![GitHub Actions Pipeline](docs/github-actions-pipeline.png)
+
+### CloudWatch Dashboard
+![CloudWatch Dashboard](docs/cloudwatch-dashboard.png)
 
 ---
 

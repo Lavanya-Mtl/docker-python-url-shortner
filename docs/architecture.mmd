@@ -1,0 +1,29 @@
+flowchart TD
+    Dev([Developer]) -->|git push to master| GH[GitHub]
+    GH -->|triggers| GA[GitHub Actions]
+    GA -->|1 run tests| PT[pytest\n8 tests]
+    PT -->|pass| Build[2 docker build\nlinux/amd64]
+    Build -->|3 push image| ECR[AWS ECR\nurl-shortener]
+    ECR -->|4 update service| ECS[AWS ECS Fargate\nurl-shortener-service]
+    ECS -->|pulls image| ECR
+    ECS -->|runs container| App[FastAPI App\nport 8000]
+    App -->|health check| CW[CloudWatch\nlogs + metrics]
+    CW -->|alarms| Alert[CPU High Alert\nNo Tasks Alert]
+
+    subgraph AWS [AWS ap-south-1]
+        subgraph VPC [VPC 10.0.0.0/16]
+            subgraph Subnets [Public Subnets a + b]
+                ECS
+                App
+            end
+        end
+        ECR
+        CW
+        Alert
+    end
+
+    subgraph IaC [Infrastructure as Code]
+        TF[Terraform\nVPC, ECS, IAM\nCloudWatch]
+    end
+
+    TF -.->|provisions| AWS
